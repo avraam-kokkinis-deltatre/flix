@@ -3,6 +3,7 @@ import {BsFillPlayCircleFill} from 'react-icons/bs';
 
 const MovieInner = () => {
 
+
     return (
 
         <>

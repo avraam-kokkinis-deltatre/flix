@@ -134,7 +134,7 @@ a:hover, a:focus {
 
 @charset "UTF-8";
 
-video {
+.shaka-video-container {
     width: 100vw;
     height: 100vh;
 }
@@ -160,4 +160,10 @@ video {
 }
 .video-thumbnail:hover:before {
     color: #eee;
+}
+
+.customControls {
+    z-index:999;
+    position:fixed;
+    bottom:100px;
 }
