@@ -5,6 +5,16 @@ const MovieInner = () => {
 
     return (
 
+        <>
+
+        <header className="fixed left-0 top-0 z-50 bg-black p-5 min-w-full">
+            <nav>
+                <ul>
+                    <li><Link to="/">Home</Link></li>
+                </ul>
+            </nav>
+        </header>
+
 
         <div className="grid grid-rows-1 grid-flow-col gap-9">
             <Link to="/moviePlayer">
@@ -32,7 +42,7 @@ const MovieInner = () => {
             </div>
         </div>
 
-
+        </>
 
     )
 }

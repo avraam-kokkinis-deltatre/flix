@@ -1,106 +1,131 @@
+import React, {useEffect} from "react";
+import {Link} from "react-router-dom";
+
+
 const MoviePlayer = () => {
 
-    const manifestUri =
 
-        'https://raw.githubusercontent.com/bbc/exoplayer-testing-samples/master/app/src/androidTest/assets/streams/files/bigbuckbunny/bigbuckbunny.mpd';
+    useEffect(() => {
 
-    async function init() {
+            const manifestUri =
 
-        // When using the UI, the player is made automatically by the UI object.
+                'https://raw.githubusercontent.com/bbc/exoplayer-testing-samples/master/app/src/androidTest/assets/streams/files/bigbuckbunny/bigbuckbunny.mpd';
 
-        const video = document.getElementById('video');
+            async function init() {
 
-        const ui = video['ui'];
+                // When using the UI, the player is made automatically by the UI object.
 
-        const controls = ui.getControls();
+                const video = document.getElementById('video');
 
-        const player = controls.getPlayer();
+                const ui = video['ui'];
 
-        // Attach player and ui to the window to make it easy to access in the JS console.
+                const controls = ui.getControls();
 
-        window.player = player;
+                const player = controls.getPlayer();
 
-        window.ui = ui;
+                // Attach player and ui to the window to make it easy to access in the JS console.
 
-        // Listen for error events.
+                window.player = player;
 
-        player.addEventListener('error', onPlayerErrorEvent);
+                window.ui = ui;
 
-        controls.addEventListener('error', onUIErrorEvent);
+                // Listen for error events.
 
-        // Try to load a manifest.
+                player.addEventListener('error', onPlayerErrorEvent);
 
-        // This is an asynchronous process.
+                controls.addEventListener('error', onUIErrorEvent);
 
-        try {
+                // Try to load a manifest.
 
-            await player.load(manifestUri);
+                // This is an asynchronous process.
 
-            // This runs if the asynchronous load is successful.
+                try {
 
-            console.log('The video has now been loaded!');
+                    await player.load(manifestUri);
 
-        } catch (error) {
+                    // This runs if the asynchronous load is successful.
 
-            onPlayerError(error);
+                    console.log('The video has now been loaded!');
 
-        }
+                } catch (error) {
 
-    }
+                    onPlayerError(error);
 
-    function onPlayerErrorEvent(errorEvent) {
+                }
 
-        // Extract the shaka.util.Error object from the event.
+            }
 
-        onPlayerError(event.detail);
 
-    }
 
-    function onPlayerError(error) {
 
-        // Handle player error
+            function onPlayerErrorEvent(errorEvent) {
 
-        console.error('Error code', error.code, 'object', error);
+                // Extract the shaka.util.Error object from the event.
 
-    }
+                onPlayerError(event.detail);
 
-    function onUIErrorEvent(errorEvent) {
+            }
 
-        // Extract the shaka.util.Error object from the event.
+            function onPlayerError(error) {
 
-        onPlayerError(event.detail);
+                // Handle player error
 
-    }
+                console.error('Error code', error.code, 'object', error);
 
-    function initFailed(errorEvent) {
+            }
 
-        // Handle the failure to load; errorEvent.detail.reasonCode has a
+            function onUIErrorEvent(errorEvent) {
 
-        // shaka.ui.FailReasonCode describing why.
+                // Extract the shaka.util.Error object from the event.
 
-        console.error('Unable to load the UI library!');
+                onPlayerError(event.detail);
 
-    }
+            }
+
+            function initFailed(errorEvent) {
+
+                // Handle the failure to load; errorEvent.detail.reasonCode has a
+
+                // shaka.ui.FailReasonCode describing why.
+
+                console.error('Unable to load the UI library!');
+
+            }
 
 // Listen to the custom shaka-ui-loaded event, to wait until the UI is loaded.
 
-    document.addEventListener('shaka-ui-loaded', init);
+            document.addEventListener('shaka-ui-loaded', init);
 
 // Listen to the custom shaka-ui-load-failed event, in case Shaka Player fails
 
 // to load (e.g. due to lack of browser support).
 
-    document.addEventListener('shaka-ui-load-failed', initFailed);
+            document.addEventListener('shaka-ui-load-failed', initFailed);
+
+            console.log('loaded!')
 
 
+
+    },[]);
 
 
 
     return (
         <>
-            <video autoPlay data-shaka-player
-                   poster="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS02v1sIbCj8pSFwHV4TBnGPSTDTw2n_w3lA&usqp=CAU"
-                   id="video"></video>
+
+            <header className="fixed left-0 top-0 z-50 bg-black p-5 min-w-full">
+                <nav>
+                    <ul>
+                        <li><Link to="/movie"><i className="fa fa-undo" aria-hidden="true"></i> Return to Title</Link></li>
+                    </ul>
+                </nav>
+            </header>
+
+
+            <video data-shaka-player
+                   autoPlay = {true}
+    poster="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRS02v1sIbCj8pSFwHV4TBnGPSTDTw2n_w3lA&usqp=CAU"
+    id="video"/>
         </>
     )
 }
