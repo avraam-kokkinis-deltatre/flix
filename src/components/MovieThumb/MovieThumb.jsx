@@ -3,12 +3,7 @@ import MovieInner from "../../Routes/MovieInner/MovieInner";
 
 const MovieThumb = (props) => {
 
-    type MovieThumbProps = {
-        title: string,
-        src: string,
-    }
-
-    const {title, src}: MovieThumbProps = props;
+    const {title, src} = props;
 
     return (
         <>
